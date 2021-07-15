@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+// 竞拍者的身份信息
+message Competitor{
+  string name = 1; // 用户名
+  int64 id = 2; // 用户id
+  string key = 3; // 用户密码
+  uint64 price =4; // 竞标价格
+  double price_time = 5; // 竞标时间
+}
+
+
+// 车牌信息
+message LicencePlate{
+  uint32 num = 1;
+  uint32 lower_bound = 2;
+  uint32 upper_bound = 3;
+}
+
+
+// 拍卖信息
+message AuctionStatus{
+  bool is_begin = 1; // 拍卖是否开始
+  uint64 current_competitor = 2; // 当前登录人数
+  LicencePlate licence = 3; // 车牌信息
+  uint64 floor_price = 4; // 起拍价
+  double lowest_time = 5; // 最低竞价出价时间
+  uint32 lowest_price = 6; // 最低竞价
+  double current_time = 7; // 当前时间
+}
+
+// 拍卖结果信息
+message Result{
+  uint64 highest_bid_price = 1; // 最高中标价
+  uint64 lowest_bid_price = 2; // 最低中标价
+  double mean_bid_price = 3; // 平均中标价
+  bool is_win = 4; // 是否中标
+  uint64 plate_price = 5; // 中标价格
+}
+
+message Message{
+  int32 type = 1; // 消息类型
+  uint64 to_whom = 2; // 目的地 -1代表广播 其余值为id号
+  Competitor client = 3; // 客户信息
+  AuctionStatus status = 4; // 当前拍卖状态
+  string data = 5;  // 数据部分
+  Result result = 6; // 拍卖结果
+}
+
+
+
+
+
